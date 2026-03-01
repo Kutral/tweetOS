@@ -33,8 +33,9 @@ html,
 body {
   margin: 0;
   padding: 0;
-  width: 380px;
+  width: 400px;
   min-height: 620px;
+  overflow-x: hidden;
   background: var(--ros-bg);
   background-image:
     radial-gradient(ellipse at 80% -10%, rgba(94, 92, 230, 0.25), transparent 50%),
@@ -71,6 +72,7 @@ body {
   letter-spacing: -0.04em;
   background: var(--ros-accent-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -575,8 +577,8 @@ select:focus {
 
 .provider-card-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
 
 .provider-card {
