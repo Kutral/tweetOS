@@ -1,0 +1,229 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReplyOS</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <main class="popup-app">
+    <header class="popup-header">
+      <div>
+        <h1>ReplyOS</h1>
+        <p>Your voice. Amplified by AI.</p>
+      </div>
+      <label class="master-toggle" for="master-enabled-toggle" title="Enable or disable ReplyOS">
+        <input type="checkbox" id="master-enabled-toggle" checked />
+        <span class="master-toggle-slider"></span>
+      </label>
+    </header>
+
+    <nav class="tabs" aria-label="Popup tabs">
+      <button class="tab-btn active" data-tab="dashboard" type="button">Dashboard</button>
+      <button class="tab-btn" data-tab="voice" type="button">My Voice</button>
+      <button class="tab-btn" data-tab="settings" type="button">Settings</button>
+    </nav>
+
+    <section class="tab-panel active" id="tab-dashboard">
+      <div class="status-row">
+        <div class="status-main">
+          <span id="dashboard-handle">@yourhandle</span>
+          <span class="status-dot" id="status-dot"></span>
+          <span id="status-text">Setup needed</span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span>Total Replies</span>
+          <strong id="stat-total">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>This Week</span>
+          <strong id="stat-week">0</strong>
+        </article>
+      </div>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>AI Model</h2>
+        </div>
+        <label for="dash-provider-selector">Provider</label>
+        <select id="dash-provider-selector">
+          <option value="groq">Groq</option>
+          <option value="nvidia">NVIDIA NIM</option>
+          <option value="google">Google Gemini</option>
+        </select>
+        <label for="dash-model-select">Model</label>
+        <select id="dash-model-select"></select>
+        <input id="dash-model-custom" class="hidden" type="text" placeholder="Custom model" />
+        <button class="primary-btn" id="dash-save-ai-btn" type="button">Save AI Selection</button>
+      </section>
+
+      <section class="card toggles-card">
+        <label class="toggle-row">
+          <span>Show button on all tweets</span>
+          <input type="checkbox" id="toggle-show-button" />
+        </label>
+        <label class="toggle-row">
+          <span>Show character count</span>
+          <input type="checkbox" id="toggle-char-count" />
+        </label>
+      </section>
+
+      <button class="link-btn" id="edit-profile-btn" type="button">Edit Voice Profile →</button>
+    </section>
+
+    <section class="tab-panel" id="tab-voice">
+      <section class="card">
+        <h2>Tone</h2>
+        <div class="tone-pills" id="tone-pills">
+          <button type="button" data-tone="Bold">Bold</button>
+          <button type="button" data-tone="Witty">Witty ⚡</button>
+          <button type="button" data-tone="Insightful">Insightful</button>
+          <button type="button" data-tone="Conversational">Conversational</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <label for="voice-style">Writing style</label>
+        <textarea id="voice-style" rows="4" maxlength="500"></textarea>
+        <div class="char-meta"><span id="voice-style-count">0</span>/500</div>
+      </section>
+
+      <section class="card">
+        <label for="custom-prompt">How should ReplyOS respond?</label>
+        <textarea id="custom-prompt" rows="4" maxlength="1400"
+          placeholder="Example: Be skeptical by default. Challenge weak claims with specifics. Avoid praise-only replies."></textarea>
+        <div class="char-meta"><span id="custom-prompt-count">0</span>/1400</div>
+        <div class="hint-text">This is injected into every generation request as your top style instruction.</div>
+      </section>
+
+      <section class="card">
+        <h2>Example Tweets</h2>
+        <div class="accordions" id="tweet-accordions"></div>
+      </section>
+
+      <button class="primary-btn" id="save-voice-btn" type="button">Save Changes</button>
+    </section>
+
+    <section class="tab-panel" id="tab-settings">
+      <section class="card provider-card-grid">
+        <article class="provider-card" data-provider-card="groq">
+          <header>
+            <h3>⚡ Groq</h3>
+            <span class="badge free">Free</span>
+          </header>
+          <p>⚡ Fastest inference on LPUs</p>
+          <div class="model-row">
+            <label for="groq-model-select">Model</label>
+            <select id="groq-model-select"></select>
+            <input id="groq-model-custom" class="hidden" type="text" placeholder="Custom Groq model" />
+          </div>
+          <ol class="provider-steps">
+            <li>Go to console.groq.com</li>
+            <li>Sign up free</li>
+            <li>Open API Keys</li>
+            <li>Create and paste key</li>
+          </ol>
+          <button class="tiny-link" data-link="groq" type="button">Get key from console.groq.com</button>
+        </article>
+
+        <article class="provider-card" data-provider-card="nvidia">
+          <header>
+            <h3>NVIDIA NIM</h3>
+            <span class="badge free">Free</span>
+          </header>
+          <p>Powerful hosted NIM models</p>
+          <div class="model-row">
+            <label for="nvidia-model-select">Model</label>
+            <select id="nvidia-model-select"></select>
+            <input id="nvidia-model-custom" class="hidden" type="text" placeholder="Custom NVIDIA model" />
+          </div>
+          <ol class="provider-steps">
+            <li>Go to build.nvidia.com</li>
+            <li>Create free account</li>
+            <li>Open API Keys</li>
+            <li>Create and paste key</li>
+          </ol>
+          <button class="tiny-link" data-link="nvidia" type="button">Get key from build.nvidia.com</button>
+        </article>
+
+        <article class="provider-card" data-provider-card="google">
+          <header>
+            <h3>Google Gemini</h3>
+            <span class="badge free">Free</span>
+          </header>
+          <p>🧠 Google's flagship AI models</p>
+          <div class="model-row">
+            <label for="google-model-select">Model</label>
+            <select id="google-model-select"></select>
+            <input id="google-model-custom" class="hidden" type="text" placeholder="Custom Gemini model" />
+          </div>
+          <ol class="provider-steps">
+            <li>Go to aistudio.google.com</li>
+            <li>Sign in with Google</li>
+            <li>Click "Get API Key"</li>
+            <li>Create and paste key</li>
+          </ol>
+          <button class="tiny-link" data-link="google" type="button">Get key from aistudio.google.com</button>
+        </article>
+      </section>
+
+      <section class="card">
+        <label for="provider-selector">Provider</label>
+        <select id="provider-selector">
+          <option value="groq">Groq</option>
+          <option value="nvidia">NVIDIA NIM</option>
+          <option value="google">Google Gemini</option>
+        </select>
+
+        <label for="api-key-input">API key</label>
+        <div class="key-row">
+          <input id="api-key-input" type="password" placeholder="Paste API key" />
+          <button id="toggle-key-visibility" type="button">👁</button>
+        </div>
+        <div class="key-note" id="key-note">Your API key is stored locally on your device only. We never see it.</div>
+
+        <div class="btn-row">
+          <button class="primary-btn" id="update-key-btn" type="button">Update API Key</button>
+          <button class="secondary-btn" id="test-connection-btn" type="button">Test Connection</button>
+        </div>
+
+        <div id="test-status" class="test-status"></div>
+      </section>
+
+      <section class="card shortcuts-card">
+        <pre>
+On Twitter
+1 2 3 4 → Select reply
+Enter → Use selected
+Esc → Close modal
+          </pre>
+      </section>
+
+      <section class="card">
+        <div class="btn-row wrap">
+          <button class="secondary-btn" id="export-btn" type="button">Export Persona</button>
+          <button class="secondary-btn" id="import-btn" type="button">Import Persona</button>
+          <button class="danger-btn" id="clear-data-btn" type="button">Clear All Data</button>
+        </div>
+        <input type="file" id="import-file" accept="application/json" class="hidden" />
+      </section>
+
+      <section class="card hidden" id="reset-card">
+        <div class="error-line">Reset needed: persona data looked corrupted.</div>
+        <button class="danger-btn" id="reset-btn" type="button">Reset Persona</button>
+      </section>
+    </section>
+
+    <div class="toast" id="toast"></div>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

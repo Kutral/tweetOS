@@ -1,0 +1,168 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReplyOS Setup</title>
+    <link rel="stylesheet" href="onboarding.css" />
+  </head>
+  <body>
+    <div class="mesh"></div>
+    <main class="setup-shell">
+      <header class="hero">
+        <h1>ReplyOS</h1>
+        <p>Quick setup. No long wizard. You can edit everything later in the popup.</p>
+      </header>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Your Voice (Optional)</h2>
+          <span>Skip this now if you want</span>
+        </div>
+
+        <div class="grid two">
+          <label>
+            Full name
+            <input id="name" type="text" maxlength="120" placeholder="Your name" />
+          </label>
+          <label>
+            Twitter handle
+            <div class="prefix-input"><span>@</span><input id="handle" type="text" maxlength="60" placeholder="username" /></div>
+          </label>
+        </div>
+
+        <label>
+          What you do
+          <input id="background" type="text" maxlength="180" placeholder="Founder, designer, growth, etc." />
+        </label>
+
+        <div>
+          <h3>Niche</h3>
+          <div class="pill-grid" id="niche-pills">
+            <button type="button" data-value="Fintech">Fintech</button>
+            <button type="button" data-value="SaaS">SaaS</button>
+            <button type="button" data-value="Startups">Startups</button>
+            <button type="button" data-value="Indie Building">Indie Building</button>
+            <button type="button" data-value="Personal Finance">Personal Finance</button>
+            <button type="button" data-value="AI/ML">AI/ML</button>
+            <button type="button" data-value="Marketing">Marketing</button>
+            <button type="button" data-value="Web3">Web3</button>
+            <button type="button" data-value="Productivity">Productivity</button>
+            <button type="button" data-value="Creator Economy">Creator Economy</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>Tone</h3>
+          <div class="tone-grid" id="tone-grid">
+            <button type="button" class="tone" data-tone="Bold">Bold</button>
+            <button type="button" class="tone" data-tone="Witty">Witty ⚡</button>
+            <button type="button" class="tone" data-tone="Insightful">Insightful</button>
+            <button type="button" class="tone" data-tone="Conversational">Conversational</button>
+          </div>
+        </div>
+
+        <label>
+          Writing style
+          <textarea id="writing-style" rows="4" maxlength="500" placeholder="How you naturally write..."></textarea>
+          <span class="counter"><span id="style-count">0</span>/500</span>
+        </label>
+
+        <label>
+          How should AI respond?
+          <textarea
+            id="custom-reply-prompt"
+            rows="4"
+            maxlength="1400"
+            placeholder="Example: Be less agreeable. Push back with specifics. Stay concise and sharp."
+          ></textarea>
+          <span class="counter"><span id="custom-reply-prompt-count">0</span>/1400</span>
+        </label>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Connect AI (Required to generate replies)</h2>
+          <span>Pick provider, key, model</span>
+        </div>
+
+        <div class="provider-grid">
+          <article class="provider-card active" data-provider-card="groq">
+            <header>
+              <label class="provider-label"><input type="radio" name="provider" value="groq" checked /> ⚡ Groq</label>
+              <span class="badge">Fastest + Free</span>
+            </header>
+            <p class="muted">Endpoint: api.groq.com/openai/v1/chat/completions</p>
+            <label>
+              Model
+              <select id="groq-model"></select>
+              <input id="groq-model-custom" class="hidden" type="text" placeholder="Custom Groq model" />
+            </label>
+            <ol>
+              <li>Go to console.groq.com</li>
+              <li>Sign up free</li>
+              <li>API Keys → Create key</li>
+              <li>Paste below</li>
+            </ol>
+            <div class="key-row">
+              <input id="groq-key" type="password" placeholder="Paste Groq API key" />
+              <button type="button" data-toggle="groq">👁</button>
+            </div>
+            <div class="row-actions">
+              <button type="button" class="ghost" data-signup="groq">Open Groq</button>
+              <button type="button" class="primary" data-test="groq">Test Connection</button>
+            </div>
+            <div class="test-line" id="groq-test-line"></div>
+          </article>
+
+          <article class="provider-card" data-provider-card="nvidia">
+            <header>
+              <label class="provider-label"><input type="radio" name="provider" value="nvidia" /> NVIDIA NIM</label>
+              <span class="badge">Powerful + Free</span>
+            </header>
+            <p class="muted">Endpoint: integrate.api.nvidia.com/v1/chat/completions</p>
+            <label>
+              Model
+              <select id="nvidia-model"></select>
+              <input id="nvidia-model-custom" class="hidden" type="text" placeholder="Custom NVIDIA model" />
+            </label>
+            <ol>
+              <li>Go to build.nvidia.com</li>
+              <li>Create free account</li>
+              <li>API Keys → Create key</li>
+              <li>Paste below</li>
+            </ol>
+            <div class="key-row">
+              <input id="nvidia-key" type="password" placeholder="Paste NVIDIA API key" />
+              <button type="button" data-toggle="nvidia">👁</button>
+            </div>
+            <div class="row-actions">
+              <button type="button" class="ghost" data-signup="nvidia">Open NVIDIA</button>
+              <button type="button" class="primary" data-test="nvidia">Test Connection</button>
+            </div>
+            <div class="test-line" id="nvidia-test-line"></div>
+          </article>
+        </div>
+
+        <p class="muted">Your API key is stored locally on your device only. We never see it.</p>
+      </section>
+
+      <section id="completion" class="card hidden completion">
+        <div class="check-wrap"><div class="checkmark"></div></div>
+        <h2>You're all set</h2>
+        <p>Go to any tweet and click ✦ AI Reply</p>
+        <button id="open-x-btn" type="button" class="primary">Open X/Twitter →</button>
+      </section>
+
+      <footer class="action-bar" id="action-bar">
+        <div id="error-line" class="error"></div>
+        <div class="action-buttons">
+          <button id="skip-btn" class="ghost" type="button">Finish without test</button>
+          <button id="save-btn" class="primary" type="button">Save & Finish Setup</button>
+        </div>
+      </footer>
+    </main>
+
+    <script src="onboarding.js"></script>
+  </body>
+</html>

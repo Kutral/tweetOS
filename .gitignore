@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Keys and secrets
+*.pem
+*.key
+.env
+.env.local
+
+# Build artifacts
+dist/
+build/
+*.zip
+
+# Logs
+*.log
+npm-debug.log*
