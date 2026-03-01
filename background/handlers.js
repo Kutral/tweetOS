@@ -64,7 +64,7 @@ export async function handleGenerateReplies(data) {
         model,
         messages,
         temperature: 0.85,
-        maxTokens: 520
+        maxTokens: 1200
     });
 
     const content = extractContent(response);

@@ -89,7 +89,8 @@ export async function callProvider({ providerId, apiKey, model, messages, temper
         }
         payload.generationConfig = {
             temperature,
-            maxOutputTokens: maxTokens
+            maxOutputTokens: maxTokens,
+            responseMimeType: "application/json"
         };
     } else {
         // OpenAI-compatible providers (Groq, NVIDIA)
