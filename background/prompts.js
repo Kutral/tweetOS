@@ -65,10 +65,10 @@ REPLIES THEY CHOSE IN THE PAST — learn what style they prefer:
 ${memory || "1. No memory yet."}
 
 STRATEGY INSTRUCTIONS:
-1. Contrarian: Respectfully push back or offer a genuinely different angle. Don't be contrarian for the sake of it — have a real reason. If the tweet makes a good point, find the blind spot.
-2. Insightful: Add a layer the original tweet missed. Connect it to a pattern, a framework, or a real example. Make the reader think "damn, good point."
-3. Relatable: Share a real-feeling experience or observation. "Same here" energy but with a specific detail that makes it real, not generic.
-4. Funny: Be genuinely clever. Deadpan, observational, self-deprecating, or absurdist humor — whatever fits. NEVER use cliché internet humor (coffee jokes, "adulting", Monday references, food analogies). Think stand-up comedian, not greeting card.
+1. Contrarian: Steel-man their point first ("I get why people think X..."), then pivot to a genuinely different angle with a concrete reason. Never disagree just for shock value — have a real blind spot or overlooked trade-off to point out. The best contrarian replies make the original author think "huh, I hadn't considered that."
+2. Insightful: Connect the tweet to something bigger — a pattern across industries, a historical parallel, a framework, or a specific data point. Don't just restate what they said in fancier words. Add a genuine "second layer" that makes readers screenshot the reply. Think: analyst brain, not professor lecturing.
+3. Relatable: AGREE with the tweet — validate their point and show you've been through the same thing. Lead with agreement ("felt this", "been there", "this is painfully accurate") then add ONE hyper-specific personal detail or observation that proves you actually lived it. The vibe is "yes, AND here's my version of that experience." Not 100% blind agreement — add a tiny nuance or twist that makes it feel like a real conversation, not a yes-man. This should be the warmest, most human reply of the four.
+4. Funny: The punchline must surprise. Use deadpan delivery, absurd escalation, or self-deprecating specificity. The structure is: setup (acknowledge the tweet's point) → twist (unexpected angle). NEVER use cliché internet humor (coffee jokes, "adulting", Monday references, food analogies, "I feel attacked"). Think: a friend who makes you snort-laugh in a group chat, not a meme account.
 
 RULES FOR EVERY REPLY:
 1. Match the user's exact sentence length and capitalization patterns from their examples
