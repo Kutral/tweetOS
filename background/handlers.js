@@ -63,14 +63,18 @@ export async function handleGenerateReplies(data) {
         apiKey,
         model,
         messages,
-        temperature: 0.85,
+        temperature: 0.78,
         maxTokens: 1200
     });
 
     const content = extractContent(response);
 
     let replies = parseRepliesFromContent(content);
-    replies = ensureExactlyFourReplies(replies);
+    replies = ensureExactlyFourReplies(replies, {
+        tweetText,
+        tweetAuthor,
+        threadContext
+    });
 
     await incrementGeneratedCounter();
 
