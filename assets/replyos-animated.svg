@@ -1,0 +1,212 @@
+<svg width="960" height="360" viewBox="0 0 960 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">ReplyOS animated draft preview</title>
+  <desc id="desc">Animated preview of ReplyOS turning a tweet into four grounded reply drafts.</desc>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    .bg {
+      fill: #101214;
+    }
+
+    .panel {
+      fill: #171b1d;
+      stroke: rgba(223, 229, 224, 0.16);
+      stroke-width: 1.5;
+    }
+
+    .soft {
+      fill: #202628;
+      stroke: rgba(223, 229, 224, 0.14);
+      stroke-width: 1;
+    }
+
+    .title {
+      font: 700 42px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: #f5f7f4;
+    }
+
+    .copy {
+      font: 500 18px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: rgba(245, 247, 244, 0.72);
+    }
+
+    .small {
+      font: 600 14px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: rgba(245, 247, 244, 0.7);
+    }
+
+    .tweet {
+      font: 600 18px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: #f5f7f4;
+    }
+
+    .draft {
+      font: 600 16px Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      fill: #f5f7f4;
+    }
+
+    .muted {
+      fill: rgba(245, 247, 244, 0.48);
+    }
+
+    .accent {
+      fill: #43c47a;
+    }
+
+    .accent-stroke {
+      stroke: #43c47a;
+    }
+
+    .pulse {
+      animation: pulse 2.8s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .scan {
+      animation: scan 3.2s ease-in-out infinite;
+    }
+
+    .draft-card {
+      opacity: 1;
+      transform: translateY(12px);
+      animation: rise 4.8s ease-in-out infinite;
+    }
+
+    .draft-card:nth-of-type(1) {
+      animation-delay: 0.2s;
+    }
+
+    .draft-card:nth-of-type(2) {
+      animation-delay: 0.55s;
+    }
+
+    .draft-card:nth-of-type(3) {
+      animation-delay: 0.9s;
+    }
+
+    .draft-card:nth-of-type(4) {
+      animation-delay: 1.25s;
+    }
+
+    .cursor {
+      animation: blink 1s steps(2, start) infinite;
+    }
+
+    .flow {
+      stroke-dasharray: 12 12;
+      animation: dash 1.4s linear infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.55;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.04);
+      }
+    }
+
+    @keyframes scan {
+      0%, 100% {
+        transform: translateX(0);
+        opacity: 0.22;
+      }
+
+      45%, 55% {
+        transform: translateX(304px);
+        opacity: 0.72;
+      }
+    }
+
+    @keyframes rise {
+      0%, 14% {
+        transform: translateY(12px);
+      }
+
+      24%, 88% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pulse,
+      .scan,
+      .draft-card,
+      .cursor,
+      .flow {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+
+  <rect class="bg" width="960" height="360" rx="28"/>
+  <path d="M0 294H960" stroke="#43c47a" stroke-width="1" opacity="0.08"/>
+  <path d="M0 314H960" stroke="#f5f7f4" stroke-width="1" opacity="0.05"/>
+
+  <text x="56" y="74" class="title">ReplyOS</text>
+  <text x="56" y="108" class="copy">Grounded reply drafts that keep the tweet in the room.</text>
+
+  <g transform="translate(56 142)">
+    <rect class="panel" width="382" height="164" rx="14"/>
+    <rect class="scan" x="24" y="54" width="6" height="72" rx="3" fill="#43c47a"/>
+    <text x="24" y="42" class="small muted">Tweet</text>
+    <text x="24" y="78" class="tweet">AI wrappers are not startups</text>
+    <text x="24" y="106" class="tweet">unless distribution is the moat</text>
+    <rect x="24" y="126" width="132" height="30" rx="15" fill="#243028" stroke="#43c47a" opacity="0.92"/>
+    <text x="44" y="146" class="small">Draft reply</text>
+  </g>
+
+  <path class="flow accent-stroke" d="M458 224 C506 224 518 224 566 224" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+  <circle class="pulse accent" cx="512" cy="224" r="7"/>
+
+  <g transform="translate(586 114)">
+    <rect class="panel" width="318" height="202" rx="14"/>
+    <text x="22" y="38" class="small muted">Reply drafts</text>
+
+    <g class="draft-card">
+      <rect class="soft" x="20" y="52" width="278" height="30" rx="8"/>
+      <text x="32" y="72" class="draft">nah, distribution is the real product</text>
+    </g>
+
+    <g class="draft-card">
+      <rect class="soft" x="20" y="88" width="278" height="30" rx="8"/>
+      <text x="32" y="108" class="draft">wrappers die when CAC enters chat</text>
+    </g>
+
+    <g class="draft-card">
+      <rect class="soft" x="20" y="124" width="278" height="30" rx="8"/>
+      <text x="32" y="144" class="draft">the landing page learns this first</text>
+    </g>
+
+    <g class="draft-card">
+      <rect class="soft" x="20" y="160" width="278" height="30" rx="8"/>
+      <text x="32" y="180" class="draft">the moat is doing unpaid overtime</text>
+    </g>
+  </g>
+
+  <rect x="56" y="326" width="186" height="14" rx="7" fill="#43c47a" opacity="0.8"/>
+  <rect class="cursor accent" x="252" y="326" width="10" height="14" rx="2"/>
+</svg>
