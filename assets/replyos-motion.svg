@@ -1,6 +1,6 @@
 <svg width="960" height="360" viewBox="0 0 960 360" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">ReplyOS animated draft preview</title>
-  <desc id="desc">Animated preview of ReplyOS turning a tweet into four grounded reply drafts.</desc>
+  <desc id="desc">Animated preview of ReplyOS reading a tweet and generating grounded reply drafts.</desc>
   <style>
     :root {
       color-scheme: dark;
@@ -58,108 +58,6 @@
     .accent-stroke {
       stroke: #43c47a;
     }
-
-    .pulse {
-      animation: pulse 2.8s ease-in-out infinite;
-      transform-origin: center;
-    }
-
-    .scan {
-      animation: scan 3.2s ease-in-out infinite;
-    }
-
-    .draft-card {
-      opacity: 1;
-      transform: translateY(12px);
-      animation: rise 4.8s ease-in-out infinite;
-    }
-
-    .draft-card:nth-of-type(1) {
-      animation-delay: 0.2s;
-    }
-
-    .draft-card:nth-of-type(2) {
-      animation-delay: 0.55s;
-    }
-
-    .draft-card:nth-of-type(3) {
-      animation-delay: 0.9s;
-    }
-
-    .draft-card:nth-of-type(4) {
-      animation-delay: 1.25s;
-    }
-
-    .cursor {
-      animation: blink 1s steps(2, start) infinite;
-    }
-
-    .flow {
-      stroke-dasharray: 12 12;
-      animation: dash 1.4s linear infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.55;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scale(1.04);
-      }
-    }
-
-    @keyframes scan {
-      0%, 100% {
-        transform: translateX(0);
-        opacity: 0.22;
-      }
-
-      45%, 55% {
-        transform: translateX(304px);
-        opacity: 0.72;
-      }
-    }
-
-    @keyframes rise {
-      0%, 14% {
-        transform: translateY(12px);
-      }
-
-      24%, 88% {
-        transform: translateY(0);
-      }
-
-      100% {
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    @keyframes dash {
-      to {
-        stroke-dashoffset: -24;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .pulse,
-      .scan,
-      .draft-card,
-      .cursor,
-      .flow {
-        animation: none;
-        opacity: 1;
-        transform: none;
-      }
-    }
   </style>
 
   <rect class="bg" width="960" height="360" rx="28"/>
@@ -171,7 +69,13 @@
 
   <g transform="translate(56 142)">
     <rect class="panel" width="382" height="164" rx="14"/>
-    <rect class="scan" x="24" y="54" width="6" height="72" rx="3" fill="#43c47a"/>
+    <rect x="22" y="52" width="338" height="76" rx="10" fill="#43c47a" opacity="0.04">
+      <animate attributeName="opacity" values="0.03;0.12;0.03" dur="2.8s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="26" y="54" width="8" height="72" rx="4" fill="#43c47a" opacity="0.9">
+      <animate attributeName="x" values="26;352;26" keyTimes="0;0.55;1" dur="3.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.35;1;0.35" dur="3.2s" repeatCount="indefinite"/>
+    </rect>
     <text x="24" y="42" class="small muted">Tweet</text>
     <text x="24" y="78" class="tweet">AI wrappers are not startups</text>
     <text x="24" y="106" class="tweet">unless distribution is the moat</text>
@@ -179,34 +83,52 @@
     <text x="44" y="146" class="small">Draft reply</text>
   </g>
 
-  <path class="flow accent-stroke" d="M458 224 C506 224 518 224 566 224" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
-  <circle class="pulse accent" cx="512" cy="224" r="7"/>
+  <path class="accent-stroke" d="M458 224 C506 224 518 224 566 224" stroke-width="3" stroke-linecap="round" opacity="0.76" stroke-dasharray="14 12">
+    <animate attributeName="stroke-dashoffset" values="0;-52" dur="1s" repeatCount="indefinite"/>
+  </path>
+  <circle class="accent" cx="512" cy="224" r="7">
+    <animate attributeName="r" values="6;12;6" dur="1.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.55;1;0.55" dur="1.2s" repeatCount="indefinite"/>
+  </circle>
 
   <g transform="translate(586 114)">
     <rect class="panel" width="318" height="202" rx="14"/>
     <text x="22" y="38" class="small muted">Reply drafts</text>
 
-    <g class="draft-card">
+    <g opacity="0.45">
+      <animate attributeName="opacity" values="0.45;1;1;0.45" keyTimes="0;0.18;0.82;1" begin="0s" dur="4.8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0 10;0 0;0 0;0 10" keyTimes="0;0.18;0.82;1" begin="0s" dur="4.8s" repeatCount="indefinite"/>
       <rect class="soft" x="20" y="52" width="278" height="30" rx="8"/>
       <text x="32" y="72" class="draft">nah, distribution is the real product</text>
     </g>
 
-    <g class="draft-card">
+    <g opacity="0.45">
+      <animate attributeName="opacity" values="0.45;1;1;0.45" keyTimes="0;0.18;0.82;1" begin="0.35s" dur="4.8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0 10;0 0;0 0;0 10" keyTimes="0;0.18;0.82;1" begin="0.35s" dur="4.8s" repeatCount="indefinite"/>
       <rect class="soft" x="20" y="88" width="278" height="30" rx="8"/>
       <text x="32" y="108" class="draft">wrappers die when CAC enters chat</text>
     </g>
 
-    <g class="draft-card">
+    <g opacity="0.45">
+      <animate attributeName="opacity" values="0.45;1;1;0.45" keyTimes="0;0.18;0.82;1" begin="0.7s" dur="4.8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0 10;0 0;0 0;0 10" keyTimes="0;0.18;0.82;1" begin="0.7s" dur="4.8s" repeatCount="indefinite"/>
       <rect class="soft" x="20" y="124" width="278" height="30" rx="8"/>
       <text x="32" y="144" class="draft">the landing page learns this first</text>
     </g>
 
-    <g class="draft-card">
+    <g opacity="0.45">
+      <animate attributeName="opacity" values="0.45;1;1;0.45" keyTimes="0;0.18;0.82;1" begin="1.05s" dur="4.8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0 10;0 0;0 0;0 10" keyTimes="0;0.18;0.82;1" begin="1.05s" dur="4.8s" repeatCount="indefinite"/>
       <rect class="soft" x="20" y="160" width="278" height="30" rx="8"/>
       <text x="32" y="180" class="draft">the moat is doing unpaid overtime</text>
     </g>
   </g>
 
-  <rect x="56" y="326" width="186" height="14" rx="7" fill="#43c47a" opacity="0.8"/>
-  <rect class="cursor accent" x="252" y="326" width="10" height="14" rx="2"/>
+  <rect x="56" y="326" width="42" height="14" rx="7" fill="#43c47a" opacity="0.8">
+    <animate attributeName="width" values="42;186;42" keyTimes="0;0.62;1" dur="3.2s" repeatCount="indefinite"/>
+  </rect>
+  <rect class="accent" x="108" y="326" width="10" height="14" rx="2">
+    <animate attributeName="x" values="108;252;108" keyTimes="0;0.62;1" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="1;0;1" dur="0.75s" repeatCount="indefinite"/>
+  </rect>
 </svg>

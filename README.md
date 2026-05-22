@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/replyos-animated.svg" alt="ReplyOS animated preview" width="860" />
+  <img src="assets/replyos-motion.svg" alt="ReplyOS animated preview" width="860" />
   <h1>ReplyOS</h1>
   <p><strong>Grounded reply drafts, right inside X (Twitter).</strong></p>
   
