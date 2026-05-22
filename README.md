@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icons/icon128.png" alt="ReplyOS Logo" width="128" />
   <h1>ReplyOS</h1>
-  <p><strong>Your personal AI ghostwriter, injected directly into X (Twitter).</strong></p>
+  <p><strong>Personal reply drafts, right inside X (Twitter).</strong></p>
   
   <p>
     <img src="https://img.shields.io/badge/Manifest-V3-30D158?style=flat-square&logo=googlechrome&logoColor=white" alt="Manifest V3" />
@@ -40,7 +40,7 @@ Bring your own API key to unlock lightning-fast, uncensored generation. We've op
 
 ## 🎨 The 4 "Voices" of ReplyOS
 
-Every time you hit the **✦ AI Reply** button beneath a tweet, ReplyOS analyzes the full context of the thread and generates four strategic angles:
+Every time you hit the **Draft reply** button beneath a tweet, ReplyOS analyzes the available context and generates four strategic angles:
 
 1. **🔥 Contrarian** — Politely pushes back, offering a blind spot or fresh perspective.
 2. **💡 Insightful** — Adds value. Connects the dots to broader frameworks or patterns.

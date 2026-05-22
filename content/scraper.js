@@ -15,8 +15,8 @@ function findTweetText(article) {
         }
     }
 
-    const fallback = article.innerText?.split("\n").slice(0, 8).join(" ").trim() || "";
-    return fallback.slice(0, 4000);
+    const fallback = article.innerText?.split("\n").slice(0, 5).join(" ").trim() || "";
+    return fallback.slice(0, 900);
 }
 
 function findTweetAuthor(article) {
@@ -38,6 +38,10 @@ function findTweetAuthor(article) {
     return { handle, name };
 }
 
+function isStatusPage() {
+    return /\/[^/]+\/status\/\d+/i.test(location.pathname || "");
+}
+
 /**
  * Gathers full thread context by reading ALL preceding tweets in the conversation.
  * When replying to a reply or a thread, this ensures the AI gets complete context
@@ -50,6 +54,10 @@ function findTweetAuthor(article) {
  * - Joins them with " → " to show the conversation flow clearly
  */
 function findThreadContext(article) {
+    if (!isStatusPage()) {
+        return "";
+    }
+
     const all = Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
     const idx = all.indexOf(article);
     if (idx <= 0) {
@@ -59,16 +67,22 @@ function findThreadContext(article) {
     // Gather ALL preceding tweets (up to 10) — these are the thread parents
     const parents = all
         .slice(0, idx)
-        .map((node) => findTweetText(node))
+        .map((node) => {
+            const text = findTweetText(node);
+            const author = findTweetAuthor(node);
+            if (!text) {
+                return "";
+            }
+            return `@${author.handle || "unknown"}: ${text.slice(0, 240)}`;
+        })
         .filter(Boolean)
-        .slice(-10);
+        .slice(-4);
 
     if (!parents.length) {
         return "";
     }
 
-    // Use arrow notation to show conversation flow: parent1 → parent2 → ... → target
-    return parents.join(" → ");
+    return parents.join("\n");
 }
 
 function getActionToolbar(article) {

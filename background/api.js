@@ -36,6 +36,15 @@ export function parseApiError(status, parsed, rawText, headers) {
         };
     }
 
+    if (status === 413) {
+        return {
+            status,
+            code: "request_too_large",
+            message: "That tweet/thread is too large to send. I trimmed context; retry once.",
+            apiMessage: ""
+        };
+    }
+
     if (status >= 500) {
         return {
             status,
@@ -92,6 +101,14 @@ export async function callProvider({ providerId, apiKey, model, messages, temper
             maxOutputTokens: maxTokens,
             responseMimeType: "application/json"
         };
+
+        // Suppress thinking tokens to prevent them from eating output budget
+        // Gemini 3 models use thinkingLevel, Gemini 2.5 uses thinkingBudget
+        if (model.includes("gemini-3")) {
+            payload.generationConfig.thinkingConfig = { thinkingLevel: "minimal" };
+        } else if (model.includes("gemini-2.5")) {
+            payload.generationConfig.thinkingConfig = { thinkingBudget: 0 };
+        }
     } else {
         // OpenAI-compatible providers (Groq, NVIDIA)
         endpoint = provider.endpoint;
@@ -108,13 +125,21 @@ export async function callProvider({ providerId, apiKey, model, messages, temper
         };
 
         // Fix reasoning models: suppress <think> blocks so output is clean JSON
+        const lowerModel = model.toLowerCase();
         if (providerId === "groq") {
-            const lowerModel = model.toLowerCase();
             if (lowerModel.includes("gpt-oss")) {
                 payload.reasoning_effort = "low";
                 payload.reasoning_format = "hidden";
             } else if (lowerModel.includes("qwen3")) {
                 payload.reasoning_effort = "none";
+            }
+        }
+
+        // NVIDIA: disable thinking for Kimi/Moonshot reasoning models
+        if (providerId === "nvidia") {
+            if (lowerModel.includes("kimi") || lowerModel.includes("moonshot")) {
+                payload.chat_template_kwargs = { thinking: false };
+                payload.include_reasoning = false;
             }
         }
     }

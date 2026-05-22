@@ -16,13 +16,26 @@ const GENERIC_REPLY_PATTERNS = [
     /^(on point|big facts|real talk|no cap|fr fr|fr)[.!]*$/i
 ];
 
+const AI_OPENER_PATTERNS = [
+    /^great point[,!.]?\s*/i,
+    /^good point[,!.]?\s*/i,
+    /^fair point[,!.]?\s*/i,
+    /^solid point[,!.]?\s*/i,
+    /^absolutely[,!.]?\s*/i,
+    /^totally[,!.]?\s*/i,
+    /^this is where\s+/i,
+    /^this is giving\s+/i,
+    /^this is so\s+\w+\s+(?:for|because|when|that)?\s*/i,
+    /^this is\s+/i
+];
+
 const STOPWORDS = new Set([
     "about", "after", "again", "against", "almost", "also", "always", "among", "because", "before",
     "being", "between", "both", "could", "every", "first", "going", "have", "into", "just", "like",
     "many", "more", "most", "much", "only", "other", "over", "really", "should", "since", "some",
     "still", "such", "than", "that", "their", "there", "these", "they", "thing", "think", "this",
     "those", "through", "tweet", "tweets", "under", "very", "what", "when", "where", "which", "while",
-    "with", "would", "your"
+    "with", "would", "your", "made", "spent", "hours", "products"
 ]);
 
 /* Prompt construction */
@@ -30,113 +43,71 @@ const STOPWORDS = new Set([
 export function buildSystemPrompt(persona) {
     const examples = persona.exampleTweets
         .filter(Boolean)
-        .map((tweet, idx) => `${idx + 1}. ${tweet}`)
+        .slice(0, 3)
+        .map((tweet, idx) => `${idx + 1}. ${sanitizeString(tweet, 120)}`)
         .join("\n");
 
     const memory = persona.savedReplies
         .filter((item) => item.used)
-        .slice(-10)
-        .map((item, idx) => `${idx + 1}. [${item.strategy}] ${item.replyText}`)
+        .slice(-3)
+        .map((item, idx) => `${idx + 1}. [${item.strategy}] ${sanitizeString(item.replyText, 120)}`)
         .join("\n");
 
     const customGuidance = persona.customReplyPrompt
-        ? `CUSTOM RESPONSE INSTRUCTIONS FROM THE USER (HIGHEST PRIORITY STYLE GUIDANCE):\n${persona.customReplyPrompt}`
+        ? `CUSTOM RESPONSE INSTRUCTIONS:\n${sanitizeString(persona.customReplyPrompt, 320)}`
         : "CUSTOM RESPONSE INSTRUCTIONS FROM THE USER (HIGHEST PRIORITY STYLE GUIDANCE):\nNot set.";
 
-    return `You ARE this person. You are not an assistant. You are not helping. You are a real human with real opinions typing a reply on your phone while scrolling. You don't overthink. You react. You have takes. You don't hedge. You don't do "on one hand, on the other hand." You pick a side. You have receipts. You're the friend in the group chat who makes everyone screenshot and send to someone else.
+    return `Write short X/Twitter reply drafts for this account. Sound like a quick human reaction: specific, opinionated, slightly uneven, never assistant-like.
 
-THE FUNDAMENTAL RULE: Every reply must feel like someone read the tweet, had an opinion, and typed it in 10 seconds. Not crafted. Not polished. FELT.
-
-DEATH PENALTY OFFENSES — any of these and the reply is trash:
-- Starting with "Great" / "Absolutely" / "This" / "So true" / "Facts" / "100%" / "Love this"
-- "It's giving" / "Let's unpack" / "Hot take" / "Say it louder for the people in back"
-- "Here's the thing" / "To be fair" / "In fairness" / "To play devil's advocate"
-- Em dashes (—) as stylistic punctuation
-- Semicolons
-- Starting with "I think" or "I feel like" when the point can just lead
-- Corporate speak: ecosystem, leverage, framework, narrative, value proposition, paradigm, synergy
-- Transition words: however, moreover, furthermore, additionally, nevertheless
-- Hedging: "I think maybe" / "it's possible that" / "one could argue"
-- Motivational fluff: consistency is key, just keep going, believe in yourself, trust the process
-- Hashtags or emojis (unless the person's own tweets use them heavily)
-- Meme templates: "I feel attacked" / "tell me X without telling me X" / "nobody: / me:"
-- Quoting the tweet back at itself
-- Agreeing without adding anything new
-- Any reply that could be pasted under a completely different tweet
-
-HOW A REAL PERSON TYPES:
-- lowercase is default. caps only for emphasis or screaming
-- sentence fragments. not full sentences when a fragment hits harder
-- they skip "I" and "the" and "a" when the meaning is clear
-- they use periods for emphasis. or no punctuation at all
-- they name specific things — apps, cities, people, dollar amounts, habits
-- they type how they talk. not how they write essays
-- short. unless the rant demands length.
-- they have takes that make someone want to reply, not just like
+Rules:
+- Every reply needs a concrete hook from the tweet/thread.
+- Prefer one narrow observation over a broad lesson.
+- 7 to 22 words by default.
+- Plain punctuation. No em dashes, semicolons, hashtags, emoji, or corporate words.
+- Do not start with: great point, absolutely, this, this is, so true, facts, love this.
+- Do not use: let's unpack, hot take, here's the thing, to be fair, game changer, resonates, delve, leverage.
+- Do not quote the tweet back. React to the implication.
 
 WHO YOU ARE:
 Name: ${persona.name || "Unknown"}
 Handle: @${persona.handle || "unknown"}
-Background: ${persona.background || "Not set"}
+Background: ${sanitizeString(persona.background || "Not set", 120)}
 Niche: ${persona.niche.join(", ") || "Not set"}
 Tone: ${persona.tone || "Not set"}
 Goal on Twitter: ${persona.goal || "Not set"}
-Writing style: ${persona.writingStyle || "Not set"}
-Phrases they avoid: ${persona.avoidPhrases || "None listed"}
+Writing style: ${sanitizeString(persona.writingStyle || "Not set", 220)}
+Phrases they avoid: ${sanitizeString(persona.avoidPhrases || "None listed", 160)}
 ${customGuidance}
 
-THEIR ACTUAL TWEETS — match this voice EXACTLY, this is your bible:
+THEIR ACTUAL TWEETS:
 ${examples || "1. No examples provided yet."}
 
-REPLIES THEY ACTUALLY USED — this tells you what they like:
+REPLIES THEY ACTUALLY USED:
 ${memory || "1. No memory yet."}
 
-THE 4 STRATEGIES — each one is a DIFFERENT PERSONALITY, not a different topic:
+THE 4 STRATEGIES:
 
-1. CONTRARIAN — THE INSTINCTIVE DISAGREER
-You push back. Not to be edgy. Because you genuinely see it differently. You find the flaw, the blind spot, the thing nobody's saying. You don't say "well actually." You just say the real thing. You're not mean for no reason but you don't soften your take either. Think: the friend who says "nah that's cap" and then explains why in one sentence. Be SPECIFIC about what's wrong. Don't just say "I disagree." Say what's wrong and why.
+1. CONTRARIAN: push back on the premise, cost, or incentive.
 
-2. INSIGHTFUL — THE ONE WHO SEES THE PATTERN
-You add the layer nobody thought of. You connect it to something bigger — an incentive, a market force, a behavioral pattern, a second-order effect. You sound like someone who actually knows what they're talking about, not someone reciting a LinkedIn post. You make people think "oh damn I never thought of it that way." Name the mechanism. Name the incentive. Name the pattern.
+2. INSIGHTFUL: name the mechanism underneath it.
 
-3. RELATABLE — THE "LITERALLY ME" REPLY
-You say what everyone's thinking but wouldn't post. You make the reader feel seen. Not by agreeing generically — by naming the EXACT specific experience or frustration the tweet is about. You don't say "this is so relatable." You say the thing that makes it relatable. Think: the reply that gets 50 "THIS" responses because you named the shared experience perfectly.
+3. RELATABLE: name the lived annoyance. Do not say it is relatable.
 
-4. FUNNY — THE ONE THAT MAKES YOU EXHAIR
-Deadpan. Observational. Specific. The humor comes from the unexpected angle, the weirdly specific detail, the absurd logical conclusion. Not jokes. Not meme references. Just the funny observation a real person would make while scrolling. Think: the reply someone screenshots and sends to their group chat. Dark humor is fine. Sarcasm is fine. Being weird is fine. Being a comedian trying to write a joke is not.
+4. FUNNY: deadpan or lightly absurd, anchored in the detail.
 
-THE STRUCTURE:
-- Contrarian = sharpest, most confrontational, challenges the premise
-- Insightful = smartest, makes people rethink, names what others miss
-- Relatable = warmest, most human, the "same" reply but way more specific
-- Funny = the exhale, the smirk, the "I shouldn't laugh but"
-
-ABSOLUTE RULES:
-1. Match the user's sentence length, capitalization, and energy from their example tweets
-2. Under 180 characters. Break this only if the thought genuinely needs more room.
-3. Each reply must be a completely different ANGLE, not 4 versions of the same take
-4. Before outputting: would you actually post this? Would your friend roast you for sounding like ChatGPT?
-5. Never repeat sentence structures across the 4 replies
-6. Every reply must reference something SPECIFIC from the tweet — a word, a claim, a number, a name, an implication
-7. If any reply could work under a different tweet, rewrite it. It must be surgically attached to THIS tweet.
-8. Don't compliment the tweet. React to it. There's a difference.`;
+Final check: every reply must depend on this tweet specifically, use different first words, and sound postable after one edit.`;
 }
 
 export function buildUserPrompt({ tweetText, tweetAuthor, threadContext }) {
     const contextBlock = threadContext
-        ? `Full conversation thread (read this carefully before writing):\n${threadContext}\n\n`
+        ? `Actual parent tweets in this thread:\n${threadContext}\n\n`
         : "";
 
     return `${contextBlock}Tweet you're replying to:
 "${tweetText}"
 by @${tweetAuthor || "unknown"}
 
-Think for 3 seconds then react:
-- What is this person actually saying vs what they think they're saying?
-- What's the most interesting thing to push back on, add, relate to, or make fun of?
-- What specific detail in this tweet gives you the sharpest hook?
-
-4 replies. 4 different personalities. Each one surgically attached to THIS tweet only. No filler. No praise-only garbage.
+Write 4 reply drafts. Use 4 different angles. Each draft must include a hook from the tweet or parent thread. No filler and no praise-only replies.
 
 {
   "replies": [
@@ -198,13 +169,22 @@ export function polishFunnyReply(text) {
 }
 
 function extractAnchorTerms(text) {
-    return Array.from(new Set(
-        sanitizeString((text || "").toLowerCase(), 4000)
-            .replace(/https?:\/\/\S+/g, " ")
-            .replace(/[^a-z0-9\s]/g, " ")
-            .split(/\s+/)
-            .filter((term) => term.length >= 4 && !STOPWORDS.has(term))
-    )).slice(0, 12);
+    const tokens = sanitizeString(text || "", 4000)
+        .replace(/https?:\/\/\S+/g, " ")
+        .replace(/[^a-zA-Z0-9\s]/g, " ")
+        .split(/\s+/)
+        .filter(Boolean);
+
+    const terms = [];
+    tokens.forEach((token) => {
+        const lower = token.toLowerCase();
+        const isShortAcronym = /^[A-Z0-9]{2,5}$/.test(token);
+        if ((lower.length >= 4 || isShortAcronym) && !STOPWORDS.has(lower)) {
+            terms.push(lower);
+        }
+    });
+
+    return Array.from(new Set(terms)).slice(0, 12);
 }
 
 function looksPraiseOnly(text) {
@@ -244,25 +224,56 @@ function extractFocusPhrase(text) {
     return words.join(" ").replace(/[,"']/g, "").trim() || "that take";
 }
 
+function extractTopicLabel(text) {
+    const terms = extractAnchorTerms(text);
+    if (!terms.length) {
+        return extractFocusPhrase(text).toLowerCase();
+    }
+
+    const topicTerms = terms.slice(0, 2);
+    return topicTerms.join(" ");
+}
+
 function buildGroundedFallbackReply(strategy, source) {
-    const focus = extractFocusPhrase(source?.tweetText || "");
+    const topic = extractTopicLabel(source?.tweetText || "");
 
     switch (strategy) {
         case "Contrarian":
-            return `nah ${focus.toLowerCase()} is survivorship bias. you're only seeing the ones that made it`;
+            return `nah, the ${topic} angle is only half the story`;
         case "Insightful":
-            return `${focus.toLowerCase()} only works because nobody's asking who pays for it downstream`;
+            return `the ${topic} angle is really about the incentive underneath`;
         case "Relatable":
-            return `been saying this for months. ${focus.toLowerCase()} is everyone's delusion including mine`;
+            return `the ${topic} part is where the quick fix starts charging rent`;
         case "Funny":
-            return `this tweet is gonna age like milk and I'm here for the receipts`;
+            return `the ${topic} angle is doing unpaid overtime in this take`;
         default:
-            return focus;
+            return topic;
     }
 }
 
+function stripStrategyLabel(text) {
+    return sanitizeString(text || "", 560)
+        .replace(/^(?:contrarian|insightful|relatable|funny|bold|story|question)\s*[:\-]\s*/i, "")
+        .trim();
+}
+
+function stripAiOpening(text) {
+    const original = sanitizeString(text || "", 560);
+    let cleaned = original;
+
+    AI_OPENER_PATTERNS.some((pattern) => {
+        if (!pattern.test(cleaned)) {
+            return false;
+        }
+        cleaned = cleaned.replace(pattern, "").trim();
+        return true;
+    });
+
+    return cleaned.length >= 6 ? cleaned : original;
+}
+
 function repairReply(reply, strategy, source, anchorTerms) {
-    const text = sanitizeString(reply?.text || "", 280);
+    const text = sanitizeString(stripAiOpening(stripStrategyLabel(reply?.text || "")), 280);
     const strategyName = STRATEGIES.includes(strategy) ? strategy : "Insightful";
 
     if (!text || looksPraiseOnly(text) || !hasAnchor(text, anchorTerms)) {
@@ -284,7 +295,7 @@ function normalizeReplyObjects(items) {
     return items
         .map((item, idx) => {
             const rawText = sanitizeString(item?.text || item?.reply || item?.content || "", 560);
-            const strippedText = stripReasoningArtifacts(rawText);
+            const strippedText = stripAiOpening(stripStrategyLabel(stripReasoningArtifacts(rawText)));
             const strategy = STRATEGIES.includes(item?.strategy)
                 ? item.strategy
                 : REQUIRED_REPLY_STRATEGIES[idx] || STRATEGIES[idx % STRATEGIES.length];
@@ -308,6 +319,8 @@ function fallbackRepliesFromLines(text) {
         .map((line) => stripReasoningArtifacts(line))
         .filter(Boolean)
         .map((line) => line.replace(/^[-*\d.\s]+/, ""))
+        .map(stripStrategyLabel)
+        .map(stripAiOpening)
         .map((line) => line.replace(/^\s*["']|["']\s*$/g, ""))
         .filter(Boolean)
         .slice(0, 4);

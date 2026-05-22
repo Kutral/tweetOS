@@ -13,7 +13,7 @@
     <header class="popup-header">
       <div>
         <h1>ReplyOS</h1>
-        <p>Your voice. Amplified by AI.</p>
+        <p>Reply drafts in your own cadence.</p>
       </div>
       <label class="master-toggle" for="master-enabled-toggle" title="Enable or disable ReplyOS">
         <input type="checkbox" id="master-enabled-toggle" checked />
@@ -49,7 +49,7 @@
 
       <section class="card">
         <div class="card-head">
-          <h2>AI Model</h2>
+          <h2>Model</h2>
         </div>
         <label for="dash-provider-selector">Provider</label>
         <select id="dash-provider-selector">
@@ -60,7 +60,7 @@
         <label for="dash-model-select">Model</label>
         <select id="dash-model-select"></select>
         <input id="dash-model-custom" class="hidden" type="text" placeholder="Custom model" />
-        <button class="primary-btn" id="dash-save-ai-btn" type="button">Save AI Selection</button>
+        <button class="primary-btn" id="dash-save-ai-btn" type="button">Save model</button>
       </section>
 
       <section class="card toggles-card">
@@ -82,7 +82,7 @@
         <h2>Tone</h2>
         <div class="tone-pills" id="tone-pills">
           <button type="button" data-tone="Bold">Bold</button>
-          <button type="button" data-tone="Witty">Witty ⚡</button>
+          <button type="button" data-tone="Witty">Witty</button>
           <button type="button" data-tone="Insightful">Insightful</button>
           <button type="button" data-tone="Conversational">Conversational</button>
         </div>
@@ -90,16 +90,17 @@
 
       <section class="card">
         <label for="voice-style">Writing style</label>
-        <textarea id="voice-style" rows="4" maxlength="500"></textarea>
+        <textarea id="voice-style" rows="4" maxlength="500"
+          placeholder="Short, punchy, slightly skeptical. Lowercase. Rarely uses emojis. Prefers specifics over hype. Sounds like a smart friend, not a motivational speaker."></textarea>
         <div class="char-meta"><span id="voice-style-count">0</span>/500</div>
       </section>
 
       <section class="card">
-        <label for="custom-prompt">How should ReplyOS respond?</label>
+        <label for="custom-prompt">Reply rules</label>
         <textarea id="custom-prompt" rows="4" maxlength="1400"
-          placeholder="Example: Be skeptical by default. Challenge weak claims with specifics. Avoid praise-only replies."></textarea>
+          placeholder="Reply to the actual claim, not the vibe. Avoid praise-only replies. Add one concrete observation, counterpoint, or consequence from the tweet/thread. If a reply could fit under any tweet, rewrite it."></textarea>
         <div class="char-meta"><span id="custom-prompt-count">0</span>/1400</div>
-        <div class="hint-text">This is injected into every generation request as your top style instruction.</div>
+        <div class="hint-text">Applied to every draft as your strongest style rule.</div>
       </section>
 
       <section class="card">
@@ -114,10 +115,10 @@
       <section class="card provider-card-grid">
         <article class="provider-card" data-provider-card="groq">
           <header>
-            <h3>⚡ Groq</h3>
+            <h3>Groq</h3>
             <span class="badge free">Free</span>
           </header>
-          <p>⚡ Fastest inference on LPUs</p>
+          <p>Fast hosted inference for quick drafts</p>
           <div class="model-row">
             <label for="groq-model-select">Model</label>
             <select id="groq-model-select"></select>
@@ -157,7 +158,7 @@
             <h3>Google Gemini</h3>
             <span class="badge free">Free</span>
           </header>
-          <p>🧠 Google's flagship AI models</p>
+          <p>Google Gemini models for careful drafting</p>
           <div class="model-row">
             <label for="google-model-select">Model</label>
             <select id="google-model-select"></select>

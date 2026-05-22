@@ -38,7 +38,7 @@ TweetBot/
 
 ## How It Works
 
-1. Content script injects "✦ AI Reply" buttons on every tweet
+1. Content script injects "Draft reply" buttons on every tweet
 2. User clicks → modal opens → background generates 4 replies (Contrarian, Insightful, Relatable, Funny)
 3. System prompt uses user's voice profile (tone, examples, past replies) to match their style
 4. User picks a reply → injected directly into Twitter's compose box

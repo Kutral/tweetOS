@@ -22,6 +22,12 @@ import {
 
 import { callProvider } from "./api.js";
 
+const GENERATION_LIMITS = {
+    tweetText: 900,
+    threadContext: 1800,
+    maxTokens: 650
+};
+
 /* ── Generate replies ── */
 
 export async function handleGenerateReplies(data) {
@@ -37,14 +43,14 @@ export async function handleGenerateReplies(data) {
         throw error;
     }
 
-    const tweetText = sanitizeString(data.tweetText || "", 4000);
+    const tweetText = sanitizeString(data.tweetText || "", GENERATION_LIMITS.tweetText);
     if (!tweetText) {
         const error = new Error("Couldn't read this tweet. Try another.");
         error.code = "tweet_parse_error";
         throw error;
     }
 
-    const threadContext = sanitizeString(data.threadContext || "", 6000);
+    const threadContext = sanitizeString(data.threadContext || "", GENERATION_LIMITS.threadContext);
     const tweetAuthor = sanitizeString(data.tweetAuthor || "", 120).replace(/^@+/, "");
 
     const messages = [
@@ -64,7 +70,7 @@ export async function handleGenerateReplies(data) {
         model,
         messages,
         temperature: 0.78,
-        maxTokens: 1200
+        maxTokens: GENERATION_LIMITS.maxTokens
     });
 
     const content = extractContent(response);

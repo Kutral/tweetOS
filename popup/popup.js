@@ -6,8 +6,52 @@ const state = {
   corruptedPersona: false
 };
 
+const FALLBACK_PROVIDER_METADATA = {
+  groq: {
+    id: "groq",
+    label: "Groq",
+    modelOptions: [
+      "llama-3.3-70b-versatile",
+      "llama-3.1-8b-instant",
+      "meta-llama/llama-4-scout-17b-16e-instruct",
+      "qwen/qwen3-32b",
+      "moonshotai/kimi-k2-instruct-0905",
+      "groq/compound",
+      "groq/compound-mini",
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "openai/gpt-oss-safeguard-20b"
+    ]
+  },
+  nvidia: {
+    id: "nvidia",
+    label: "NVIDIA",
+    modelOptions: [
+      "nvidia/llama-3.3-nemotron-super-49b-v1",
+      "meta/llama-3.1-8b-instruct",
+      "minimaxai/minimax-m2.5",
+      "moonshotai/kimi-k2.5"
+    ]
+  },
+  google: {
+    id: "google",
+    label: "Google Gemini",
+    modelOptions: [
+      "gemini-3-flash-preview",
+      "gemini-2.5-flash"
+    ]
+  }
+};
+
 function sendMessage(action, payload = {}) {
   return new Promise((resolve, reject) => {
+    if (typeof chrome === "undefined" || !chrome.runtime?.sendMessage) {
+      const err = new Error("Extension runtime unavailable.");
+      err.code = "runtime_unavailable";
+      reject(err);
+      return;
+    }
+
     chrome.runtime.sendMessage({ action, payload }, (response) => {
       const runtimeError = chrome.runtime.lastError;
       if (runtimeError) {
@@ -52,7 +96,11 @@ function setTabs() {
 }
 
 function getProviderMeta(providerId) {
-  return state.providerMetadata.find((provider) => provider.id === providerId) || null;
+  return (
+    state.providerMetadata.find((provider) => provider.id === providerId) ||
+    FALLBACK_PROVIDER_METADATA[providerId] ||
+    null
+  );
 }
 
 function getModelField(providerId) {
@@ -234,9 +282,9 @@ function bindDashboardActions() {
       state.providerMetadata = response.providerMetadata || state.providerMetadata;
       populateDashboardModelControls();
       updateProviderVisuals();
-      showToast("AI model saved ✓");
+      showToast("Model saved ✓");
     } catch (error) {
-      showToast(error.message || "Failed to save AI selection");
+      showToast(error.message || "Failed to save model");
     }
   });
 
@@ -647,6 +695,9 @@ async function load() {
     await load();
     await hydrate();
   } catch (error) {
+    if (error.code === "runtime_unavailable") {
+      return;
+    }
     showToast(error.message || "Failed to load ReplyOS");
   }
 })();

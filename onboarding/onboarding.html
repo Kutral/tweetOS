@@ -56,7 +56,7 @@
           <h3>Tone</h3>
           <div class="tone-grid" id="tone-grid">
             <button type="button" class="tone" data-tone="Bold">Bold</button>
-            <button type="button" class="tone" data-tone="Witty">Witty ⚡</button>
+            <button type="button" class="tone" data-tone="Witty">Witty</button>
             <button type="button" class="tone" data-tone="Insightful">Insightful</button>
             <button type="button" class="tone" data-tone="Conversational">Conversational</button>
           </div>
@@ -69,7 +69,7 @@
         </label>
 
         <label>
-          How should AI respond?
+          Reply rules
           <textarea
             id="custom-reply-prompt"
             rows="4"
@@ -82,14 +82,14 @@
 
       <section class="card">
         <div class="card-head">
-          <h2>Connect AI (Required to generate replies)</h2>
+          <h2>Connect model</h2>
           <span>Pick provider, key, model</span>
         </div>
 
         <div class="provider-grid">
           <article class="provider-card active" data-provider-card="groq">
             <header>
-              <label class="provider-label"><input type="radio" name="provider" value="groq" checked /> ⚡ Groq</label>
+              <label class="provider-label"><input type="radio" name="provider" value="groq" checked /> Groq</label>
               <span class="badge">Fastest + Free</span>
             </header>
             <p class="muted">Endpoint: api.groq.com/openai/v1/chat/completions</p>
@@ -150,7 +150,7 @@
       <section id="completion" class="card hidden completion">
         <div class="check-wrap"><div class="checkmark"></div></div>
         <h2>You're all set</h2>
-        <p>Go to any tweet and click ✦ AI Reply</p>
+        <p>Go to any tweet and click Draft reply</p>
         <button id="open-x-btn" type="button" class="primary">Open X/Twitter →</button>
       </section>
 

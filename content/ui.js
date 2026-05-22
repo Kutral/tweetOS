@@ -59,17 +59,17 @@ function setModalContent(content) {
     }
 }
 
-function renderLoading(providerLabel = "AI") {
+function renderLoading(providerLabel = "model") {
     setModalContent(`
     <div class="replyos-modal-header">
-      <div class="replyos-modal-title">ReplyOS</div>
+      <div class="replyos-modal-title">Reply drafts</div>
       <button type="button" class="replyos-close" aria-label="Close">✕</button>
     </div>
     <div class="replyos-modal-body">
       <div class="replyos-loading-stack">
         <div class="replyos-spinner-wrap">
           <div class="replyos-spinner"></div>
-          <div class="replyos-loading-text">Generating replies in your voice...</div>
+          <div class="replyos-loading-text">Reading the tweet and drafting options...</div>
         </div>
         <div class="replyos-skeleton"></div>
         <div class="replyos-skeleton"></div>
@@ -77,7 +77,7 @@ function renderLoading(providerLabel = "AI") {
       </div>
     </div>
     <div class="replyos-footer">
-      <div class="replyos-provider">Powered by ${providerLabel}</div>
+      <div class="replyos-provider">Drafted with ${providerLabel}</div>
       <button type="button" class="replyos-footer-btn" disabled>↻ Regenerate</button>
     </div>
   `);
@@ -265,13 +265,13 @@ function showInlineError(message, includeRetry, context, error = null) {
 
     setModalContent(`
     <div class="replyos-modal-header">
-      <div class="replyos-modal-title">ReplyOS</div>
+      <div class="replyos-modal-title">Reply drafts</div>
       <button type="button" class="replyos-close" aria-label="Close">✕</button>
     </div>
     <div class="replyos-modal-body">
       <div class="replyos-error-box">
         <div>${message}</div>
-        ${error?.apiMessage ? `<div>${error.apiMessage}</div>` : ""}
+        ${error?.apiMessage && error.apiMessage !== message ? `<div>${error.apiMessage}</div>` : ""}
         ${countdownText ? `<div>${countdownText}</div>` : ""}
         ${reloadHint ? `<div>${reloadHint}</div>` : ""}
         <div class="replyos-error-actions">
@@ -281,7 +281,7 @@ function showInlineError(message, includeRetry, context, error = null) {
       </div>
     </div>
     <div class="replyos-footer">
-      <div class="replyos-provider">Powered by ${REPLYOS_STATE.prefs.providerLabel}</div>
+      <div class="replyos-provider">Drafted with ${REPLYOS_STATE.prefs.providerLabel}</div>
       <button type="button" class="replyos-footer-btn" data-role="regenerate">↻ Regenerate</button>
     </div>
   `);
@@ -335,7 +335,7 @@ function renderResults(replies, context) {
             ${countMarkup}
             <div class="replyos-card-actions">
               <button type="button" class="replyos-mini-btn" data-role="copy">Copy</button>
-              <button type="button" class="replyos-mini-btn primary" data-role="use">Use This Reply</button>
+              <button type="button" class="replyos-mini-btn primary" data-role="use">Use draft</button>
             </div>
           </div>
         </article>
@@ -345,14 +345,14 @@ function renderResults(replies, context) {
 
     setModalContent(`
     <div class="replyos-modal-header">
-      <div class="replyos-modal-title">ReplyOS Suggestions</div>
+      <div class="replyos-modal-title">Reply drafts</div>
       <button type="button" class="replyos-close" aria-label="Close">✕</button>
     </div>
     <div class="replyos-modal-body">
       <div class="replyos-replies">${cardsMarkup}</div>
     </div>
     <div class="replyos-footer">
-      <div class="replyos-provider">Powered by ${context.providerLabel}</div>
+      <div class="replyos-provider">Drafted with ${context.providerLabel}</div>
       <div class="replyos-hotkeys">1 2 3 4 select • Enter use • Esc close</div>
       <button type="button" class="replyos-footer-btn" data-role="regenerate">↻ Regenerate</button>
     </div>
@@ -384,6 +384,13 @@ function normalizeUiError(error) {
 
     if (error.code === "server_error") {
         return { ...error, message: "AI service is down. Try again in a moment." };
+    }
+
+    if (error.code === "request_too_large") {
+        return {
+            ...error,
+            message: "That tweet/thread is too large. ReplyOS now trims context automatically; retry once."
+        };
     }
 
     if (error.code === "network_error") {

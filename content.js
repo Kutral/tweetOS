@@ -34,7 +34,7 @@ function applyInjection() {
     const button = document.createElement("button");
     button.className = "replyos-action-btn";
     button.type = "button";
-    button.textContent = "✦ AI Reply";
+    button.textContent = "Draft reply";
     button.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();

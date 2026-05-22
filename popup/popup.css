@@ -1,18 +1,16 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Apple-inspired color palette */
-  --ros-bg: rgba(18, 18, 20, 0.95);
-  --ros-surface: rgba(28, 28, 30, 0.65);
-  --ros-surface-2: rgba(44, 44, 46, 0.65);
-  --ros-border: rgba(255, 255, 255, 0.12);
-  --ros-border-hover: rgba(255, 255, 255, 0.25);
+  --ros-bg: #101214;
+  --ros-surface: rgba(27, 31, 33, 0.94);
+  --ros-surface-2: rgba(37, 42, 44, 0.96);
+  --ros-border: rgba(223, 229, 224, 0.14);
+  --ros-border-hover: rgba(223, 229, 224, 0.28);
 
-  /* Vibrant colorful accents (Cyan/Blue/Purple) */
-  --ros-accent: #0A84FF;
-  --ros-accent-light: #5E5CE6;
-  --ros-accent-glow: rgba(10, 132, 255, 0.4);
-  --ros-accent-gradient: linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%);
+  --ros-accent: #43c47a;
+  --ros-accent-light: #9ce7b8;
+  --ros-accent-glow: rgba(67, 196, 122, 0.24);
+  --ros-accent-gradient: linear-gradient(135deg, #43c47a 0%, #9ce7b8 100%);
 
   /* Typography */
   --ros-text: #FFFFFF;
@@ -21,8 +19,8 @@
   --ros-error: #FF453A;
 
   /* Glass effects */
-  --ros-blur: blur(24px) saturate(180%);
-  --ros-shadow-card: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  --ros-blur: blur(16px) saturate(130%);
+  --ros-shadow-card: 0 10px 26px rgba(0, 0, 0, 0.22);
 }
 
 * {
@@ -37,9 +35,7 @@ body {
   min-height: 620px;
   overflow-x: hidden;
   background: var(--ros-bg);
-  background-image:
-    radial-gradient(ellipse at 80% -10%, rgba(94, 92, 230, 0.25), transparent 50%),
-    radial-gradient(ellipse at -20% 110%, rgba(10, 132, 255, 0.2), transparent 50%);
+  background-image: none;
   color: var(--ros-text);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -56,7 +52,7 @@ body {
   backdrop-filter: var(--ros-blur);
   -webkit-backdrop-filter: var(--ros-blur);
   border: 1px solid var(--ros-border);
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 16px 20px;
   box-shadow: var(--ros-shadow-card);
   display: flex;
@@ -69,11 +65,8 @@ body {
   font-family: inherit;
   font-weight: 700;
   font-size: 24px;
-  letter-spacing: -0.04em;
-  background: var(--ros-accent-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  letter-spacing: 0;
+  color: var(--ros-text);
 }
 
 .popup-header p {
@@ -81,7 +74,7 @@ body {
   color: var(--ros-text-muted);
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 /* Apple-style Toggle Switch */
@@ -145,7 +138,7 @@ body {
   gap: 8px;
   background: rgba(255, 255, 255, 0.05);
   padding: 4px;
-  border-radius: 14px;
+  border-radius: 8px;
   border: 1px solid var(--ros-border);
 }
 
@@ -153,7 +146,7 @@ body {
   border: none;
   background: transparent;
   color: var(--ros-text-muted);
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 8px;
   font-size: 13px;
   font-weight: 600;
@@ -196,7 +189,7 @@ body {
   backdrop-filter: var(--ros-blur);
   -webkit-backdrop-filter: var(--ros-blur);
   border: 1px solid var(--ros-border);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 12px 16px;
   box-shadow: var(--ros-shadow-card);
 }
@@ -210,7 +203,7 @@ body {
 
 #dashboard-handle {
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .status-dot {
@@ -237,7 +230,7 @@ body {
   backdrop-filter: var(--ros-blur);
   -webkit-backdrop-filter: var(--ros-blur);
   border: 1px solid var(--ros-border);
-  border-radius: 18px;
+  border-radius: 8px;
   padding: 16px;
   display: grid;
   gap: 8px;
@@ -249,13 +242,13 @@ body {
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
 }
 
 .stat-card strong {
   font-size: 28px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .card {
@@ -263,7 +256,7 @@ body {
   backdrop-filter: var(--ros-blur);
   -webkit-backdrop-filter: var(--ros-blur);
   border: 1px solid var(--ros-border);
-  border-radius: 18px;
+  border-radius: 8px;
   padding: 16px;
   display: grid;
   gap: 14px;
@@ -275,7 +268,7 @@ body {
   margin: 0;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .card-head {
@@ -295,7 +288,7 @@ body {
 .recent-item {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--ros-border);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 12px;
   display: grid;
   gap: 8px;
@@ -322,7 +315,7 @@ body {
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   box-shadow: 0 4px 12px var(--ros-accent-glow);
 }
 
@@ -353,7 +346,7 @@ body {
   font-size: 14px;
   color: var(--ros-text);
   line-height: 1.5;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .recent-meta {
@@ -368,7 +361,7 @@ body {
   align-items: center;
   font-size: 14px;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .toggle-row input {
@@ -381,7 +374,7 @@ body {
   border: 1px solid var(--ros-border);
   background: rgba(255, 255, 255, 0.04);
   color: var(--ros-accent);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 12px;
   text-align: left;
   font-size: 13px;
@@ -425,7 +418,7 @@ select {
   border: 1px solid var(--ros-border);
   background: rgba(0, 0, 0, 0.2);
   color: var(--ros-text);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 12px 14px;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
@@ -439,7 +432,7 @@ select:focus {
   outline: none;
   border-color: var(--ros-accent);
   background: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(67, 196, 122, 0.2);
 }
 
 .char-meta {
@@ -462,7 +455,7 @@ select:focus {
 
 .accordion {
   border: 1px solid var(--ros-border);
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.03);
 }
@@ -499,7 +492,7 @@ select:focus {
 .secondary-btn,
 .danger-btn,
 .tiny-link {
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 12px 16px;
   font-size: 14px;
   font-weight: 600;
@@ -507,7 +500,7 @@ select:focus {
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.25, 1, 0.5, 1);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .primary-btn {
@@ -583,7 +576,7 @@ select:focus {
 
 .provider-card {
   border: 1px solid var(--ros-border);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 14px;
   display: grid;
   gap: 8px;
@@ -598,8 +591,8 @@ select:focus {
 
 .provider-card.active {
   border-color: var(--ros-accent);
-  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.3), 0 0 16px var(--ros-accent-glow) inset;
-  background: rgba(10, 132, 255, 0.1);
+  box-shadow: 0 0 0 2px rgba(67, 196, 122, 0.24), 0 0 16px var(--ros-accent-glow) inset;
+  background: rgba(67, 196, 122, 0.1);
 }
 
 .provider-card header {
@@ -629,7 +622,7 @@ select:focus {
   padding: 4px 8px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -653,7 +646,7 @@ select:focus {
   border: 1px solid var(--ros-border);
   background: rgba(255, 255, 255, 0.05);
   color: var(--ros-text);
-  border-radius: 12px;
+  border-radius: 8px;
   width: 44px;
   cursor: pointer;
   transition: all 200ms ease;
@@ -708,7 +701,7 @@ select:focus {
 .shortcuts-card pre {
   margin: 0;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  border-radius: 8px;
   background: rgba(0, 0, 0, 0.3);
   color: var(--ros-text-muted);
   font-size: 12px;
@@ -730,7 +723,7 @@ select:focus {
   background: rgba(20, 20, 22, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 14px 16px;
   font-size: 14px;
   font-weight: 500;

@@ -1,18 +1,16 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Apple-inspired color palette */
-  --ros-bg: #000000;
-  --ros-surface: rgba(28, 28, 30, 0.65);
-  --ros-surface-2: rgba(44, 44, 46, 0.65);
-  --ros-border: rgba(255, 255, 255, 0.12);
-  --ros-border-hover: rgba(255, 255, 255, 0.25);
+  --ros-bg: #101214;
+  --ros-surface: rgba(27, 31, 33, 0.94);
+  --ros-surface-2: rgba(37, 42, 44, 0.96);
+  --ros-border: rgba(223, 229, 224, 0.14);
+  --ros-border-hover: rgba(223, 229, 224, 0.28);
 
-  /* Vibrant colorful accents (Cyan/Blue/Purple) */
-  --ros-accent: #0A84FF;
-  --ros-accent-light: #5E5CE6;
-  --ros-accent-glow: rgba(10, 132, 255, 0.4);
-  --ros-accent-gradient: linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%);
+  --ros-accent: #43c47a;
+  --ros-accent-light: #9ce7b8;
+  --ros-accent-glow: rgba(67, 196, 122, 0.24);
+  --ros-accent-gradient: linear-gradient(135deg, #43c47a 0%, #9ce7b8 100%);
 
   /* Typography */
   --ros-text: #FFFFFF;
@@ -21,8 +19,8 @@
   --ros-error: #FF453A;
 
   /* Glass effects */
-  --ros-blur: blur(32px) saturate(200%);
-  --ros-shadow-card: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  --ros-blur: blur(16px) saturate(130%);
+  --ros-shadow-card: 0 10px 26px rgba(0, 0, 0, 0.22);
 }
 
 * {
@@ -44,17 +42,14 @@ body {
   overflow-x: hidden;
 }
 
-/* Stunning Apple Event style mesh gradient background */
 .mesh {
   position: fixed;
   inset: -20%;
   background:
-    radial-gradient(ellipse at 10% 10%, rgba(10, 132, 255, 0.25), transparent 60%),
-    radial-gradient(ellipse at 90% 20%, rgba(94, 92, 230, 0.3), transparent 60%),
-    radial-gradient(ellipse at 50% 100%, rgba(191, 90, 242, 0.25), transparent 70%),
-    #000000;
+    linear-gradient(135deg, rgba(67, 196, 122, 0.08), transparent 35%),
+    #101214;
   pointer-events: none;
-  filter: blur(40px);
+  filter: none;
 }
 
 .setup-shell {
@@ -81,7 +76,7 @@ body {
 
 .hero {
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
+  border-radius: 8px;
   background: rgba(20, 20, 22, 0.6);
   backdrop-filter: var(--ros-blur);
   -webkit-backdrop-filter: var(--ros-blur);
@@ -108,9 +103,9 @@ body {
   margin: 0;
   font-family: inherit;
   font-weight: 700;
-  font-size: clamp(48px, 8vw, 84px);
+  font-size: 64px;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.7) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -119,16 +114,16 @@ body {
 .hero p {
   margin: 12px 0 0;
   color: var(--ros-text-muted);
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: 18px;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   max-width: 600px;
   margin-inline: auto;
 }
 
 .card {
   border: 1px solid var(--ros-border);
-  border-radius: 24px;
+  border-radius: 8px;
   background: var(--ros-surface);
   backdrop-filter: var(--ros-blur);
   -webkit-backdrop-filter: var(--ros-blur);
@@ -155,7 +150,7 @@ body {
   margin: 0;
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .card-head span {
@@ -168,7 +163,7 @@ h3 {
   margin: 0 0 10px;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 label {
@@ -183,7 +178,7 @@ input[type="password"],
 textarea,
 select {
   width: 100%;
-  border-radius: 14px;
+  border-radius: 8px;
   border: 1px solid var(--ros-border);
   background: rgba(0, 0, 0, 0.3);
   color: var(--ros-text);
@@ -200,7 +195,7 @@ select:focus {
   outline: none;
   border-color: var(--ros-accent);
   background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(67, 196, 122, 0.2);
 }
 
 .grid.two {
@@ -213,7 +208,7 @@ select:focus {
   display: grid;
   grid-template-columns: 36px 1fr;
   border: 1px solid var(--ros-border);
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.3);
   transition: all 250ms ease;
@@ -221,7 +216,7 @@ select:focus {
 
 .prefix-input:focus-within {
   border-color: var(--ros-accent);
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(67, 196, 122, 0.2);
 }
 
 .prefix-input span {
@@ -295,7 +290,7 @@ select:focus {
 
 .provider-card {
   border: 1px solid var(--ros-border);
-  border-radius: 18px;
+  border-radius: 8px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.3);
   display: grid;
@@ -310,8 +305,8 @@ select:focus {
 
 .provider-card.active {
   border-color: var(--ros-accent);
-  background: rgba(10, 132, 255, 0.1);
-  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.3), 0 0 20px var(--ros-accent-glow) inset;
+  background: rgba(67, 196, 122, 0.1);
+  box-shadow: 0 0 0 2px rgba(67, 196, 122, 0.24), 0 0 20px var(--ros-accent-glow) inset;
 }
 
 .provider-card header {
@@ -327,7 +322,7 @@ select:focus {
   align-items: center;
   font-weight: 600;
   font-size: 16px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .provider-label input {
@@ -340,7 +335,7 @@ select:focus {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   color: var(--ros-success);
   background: rgba(48, 209, 88, 0.15);
   border-radius: 999px;
@@ -365,7 +360,7 @@ ol {
 
 .key-row button {
   border: 1px solid var(--ros-border);
-  border-radius: 14px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
   color: var(--ros-text);
   width: 48px;
@@ -386,13 +381,13 @@ ol {
 
 .primary,
 .ghost {
-  border-radius: 16px;
+  border-radius: 8px;
   border: 1px solid transparent;
   padding: 16px 24px;
   font-size: 16px;
   font-weight: 600;
   font-family: inherit;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   cursor: pointer;
   transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
   text-align: center;
@@ -512,7 +507,7 @@ ol {
   margin: 0;
   font-size: 32px;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.7) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

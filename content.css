@@ -1,18 +1,16 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Apple-inspired color palette */
-  --ros-bg: rgba(18, 18, 20, 0.7);
-  --ros-surface: rgba(28, 28, 30, 0.65);
-  --ros-surface-2: rgba(44, 44, 46, 0.65);
-  --ros-border: rgba(255, 255, 255, 0.15);
-  --ros-border-hover: rgba(255, 255, 255, 0.25);
+  --ros-bg: rgba(16, 18, 20, 0.94);
+  --ros-surface: rgba(27, 31, 33, 0.92);
+  --ros-surface-2: rgba(36, 41, 43, 0.94);
+  --ros-border: rgba(223, 229, 224, 0.14);
+  --ros-border-hover: rgba(223, 229, 224, 0.28);
 
-  /* Vibrant colorful accents (Cyan/Blue/Purple) */
-  --ros-accent: #0A84FF;
-  --ros-accent-light: #5E5CE6;
-  --ros-accent-glow: rgba(10, 132, 255, 0.4);
-  --ros-accent-gradient: linear-gradient(135deg, #0A84FF 0%, #5E5CE6 100%);
+  --ros-accent: #43c47a;
+  --ros-accent-light: #9ce7b8;
+  --ros-accent-glow: rgba(67, 196, 122, 0.24);
+  --ros-accent-gradient: linear-gradient(135deg, #43c47a 0%, #9ce7b8 100%);
 
   /* Typography */
   --ros-text: #FFFFFF;
@@ -21,9 +19,9 @@
   --ros-error: #FF453A;
 
   /* Glass effects */
-  --ros-blur: blur(32px) saturate(200%);
-  --ros-shadow-modal: 0 32px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
-  --ros-shadow-card: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  --ros-blur: blur(18px) saturate(140%);
+  --ros-shadow-modal: 0 24px 70px rgba(0, 0, 0, 0.46), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  --ros-shadow-card: 0 10px 26px rgba(0, 0, 0, 0.24);
 }
 
 .replyos-action-wrap {
@@ -42,7 +40,7 @@
   padding: 6px 14px;
   font-size: 13px;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   cursor: pointer;
   transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -69,7 +67,7 @@
 .replyos-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(3, 5, 6, 0.56);
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   z-index: 2147483646;
@@ -88,11 +86,8 @@
   background: var(--ros-bg);
   backdrop-filter: var(--ros-blur);
   -webkit-backdrop-filter: var(--ros-blur);
-  /* The mesh gradient gives it that colorful, premium Apple presentation glow */
-  background-image:
-    radial-gradient(ellipse at 80% -20%, rgba(94, 92, 230, 0.4), transparent 50%),
-    radial-gradient(ellipse at -20% 120%, rgba(10, 132, 255, 0.3), transparent 50%);
-  border-radius: 24px;
+  border: 1px solid var(--ros-border);
+  border-radius: 12px;
   box-shadow: var(--ros-shadow-modal);
   color: var(--ros-text);
   transform: scale(0.96) translateY(20px);
@@ -126,7 +121,7 @@
 .replyos-modal-title {
   font-size: 17px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .replyos-close {
@@ -206,12 +201,12 @@
   color: var(--ros-text);
   font-size: 15px;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .replyos-skeleton {
   height: 110px;
-  border-radius: 18px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
   position: relative;
   overflow: hidden;
@@ -244,7 +239,7 @@
 .replyos-card {
   background: var(--ros-surface);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 18px;
   display: grid;
   gap: 12px;
@@ -294,12 +289,12 @@
   display: inline-flex;
   width: fit-content;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.12);
   color: var(--ros-text);
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   text-transform: uppercase;
   backdrop-filter: blur(8px);
 }
@@ -315,7 +310,7 @@
   color: var(--ros-text);
   line-height: 1.5;
   font-size: 15px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .replyos-meta {
@@ -345,7 +340,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.05);
   color: var(--ros-text);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 8px 14px;
   font-size: 13px;
   font-weight: 600;
@@ -396,7 +391,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.05);
   color: var(--ros-text);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 8px 16px;
   font-size: 13px;
   font-weight: 600;
@@ -414,7 +409,7 @@
 .replyos-error-box {
   border: 1px solid rgba(255, 69, 58, 0.3);
   background: rgba(255, 69, 58, 0.1);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 16px;
   display: grid;
   gap: 12px;
@@ -443,7 +438,7 @@
 
   .replyos-modal {
     width: min(96vw, 560px);
-    border-radius: 20px;
+    border-radius: 10px;
   }
 
   .replyos-modal-body {
